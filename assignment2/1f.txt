@@ -1,0 +1,15 @@
+SELECT COUNT(*) 
+FROM
+(
+SELECT docid 
+FROM frequency
+WHERE term = 'transactions' 
+) a
+JOIN
+(
+SELECT docid 
+FROM frequency
+WHERE term = 'world' 
+) b
+WHERE a.docid = b.docid
+;

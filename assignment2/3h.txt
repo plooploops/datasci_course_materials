@@ -1,0 +1,26 @@
+SELECT SUM(c.val)
+FROM
+(
+SELECT 
+  a.docid
+  ,b.term
+  ,SUM(a.count * b.count) as val
+FROM 
+(SELECT 
+  docid
+  ,term
+  ,count
+FROM frequency as f1
+WHERE f1.docid = '10080_txt_crude') as a, 
+(SELECT 
+  docid
+  ,term
+  ,count
+FROM frequency as f2
+WHERE f2.docid = '17035_txt_earn') as b
+WHERE a.term = b.term
+AND a.docid < b.docid
+GROUP BY a.docid, b.term) as c
+GROUP BY c.docid
+;
+
